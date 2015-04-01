@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Registration Form</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="../css/signupstyle.css" media="all" />
+    
+    <script>
+        function signUp(){
+            
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var repassword = document.getElementById("repassword").value;
+            var incomplete = false;
+            var atpos = email.indexOf("@");
+            var dotpos = email.lastIndexOf(".");
+            
+            if((name == "") || (email == "") || (password == "") || (repassword == "") ){
+                incomplete = true;
+                alert("All fields are required");
+            }
+            else if(!(password == repassword))
+            {
+                incomplete = true;
+                alert("Password does not match");
+            }
+            
+            else if (atpos < 1 || ( dotpos - atpos < 2 )) 
+            {
+                incomplete = true;
+                alert("Invalid Email Id");
+            }
+            
+            if(!incomplete){
+                xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET","../php/signUp.php?name="+name+"&email="+email+"&password="+password,true);
+                xmlhttp.onreadystatechange=function() {
+                    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                        if(xmlhttp.responseText.trim()=="success"){
+                            alert("Successfully Signed Up!!");
+                            window.location = "../HTML/tetrisGame.html";
+                        }
+                        else if(xmlhttp.responseText.trim()=="already")
+                            alert("Username Already Exists");
+                    }
+                }
+                xmlhttp.send(null);   
+            }    
+        }
+    </script>
+    
+</head>
+<body>
+
+      <div  class="form">
+    		<form id="contactform"> 
+    			<p class="contact"><label for="name">Name</label></p> 
+    			<input id="name" name="name" placeholder="First and last name" required="" tabindex="1" type="text"> 
+    			 
+    			<p class="contact"><label for="email">Email</label></p> 
+    			<input id="email" name="email" placeholder="example@domain.com" required="" type="email"> 
+                
+    			 
+                <p class="contact"><label for="password">Create a password</label></p> 
+    			<input type="password" id="password" name="password" required=""> 
+                <p class="contact"><label for="repassword">Confirm your password</label></p> 
+    			<input type="password" id="repassword" name="repassword" required=""> 
+        
+            <input class="buttom" name="submit" id="submit" tabindex="5" value="Sign me up!" type="button" onclick="signUp()" > 	 
+   </form> 
+</div>      
+</div>
+
+</body>
+</html>

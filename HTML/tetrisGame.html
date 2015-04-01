@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+     <head>
+         <title>Tetris</title>
+         <meta charset="utf-8">
+         <link href="../css/tetrisStyle.css" type="text/css" rel="stylesheet" /> 
+         <script src="../js/tetrisfunction.js" type="text/javascript"></script>
+         <script type="text/javascript" src="../js/jquery-1.11.1.js"></script>
+         <script type="text/javascript" src="../js/jquery-ui.js"></script>
+    </head>
+    <body>
+    
+ <nav>
+  <ul>
+    <li id="login">
+    <a id="login-trigger" href="#">
+        Log in <span>▼</span>
+        </a>
+      <div id="login-content">
+        <form id="login_form" action="">
+          <fieldset id="inputs">
+            <input id="username" type="username" name="username" placeholder="Your email address" >   
+            <input id="password" type="password" name="password" placeholder="Password" >
+          </fieldset>
+          <fieldset id="actions">
+            
+          <input type="button" id="submit" name="submit" value="Log in" onclick="checkLogin()">
+          </fieldset>
+            <div id="errorStr" >
+              <p>In-correct username or password</p>
+              </div>
+        </form>
+      </div>                     
+    </li>
+    <li id="signup">
+      <a href="../HTML/signup.html">Sign up</a>
+   </li>
+      
+       <input type="button" value="Signout" id="signout" onclick="logout()" size="15" style="visibility:hidden">  
+      
+  </ul>
+</nav>
+        
+    <div class="left">
+        <input type="button" value="Start New Game" onclick="onReady()"> <br />
+        <input type="button" value="Pause Game" id="pause" onclick="pause()"><br />
+        <input type="button" value="End Game" onclick="endGame()"> <br />
+        <a href="../HTML/help.html"> <input type="button" value="Help" > </a><br />
+    </div>
+        
+    <div id="tetrisboard">
+        <canvas id="gameCanvas" width="320" height="640" style="border:2.5px solid #B0E0E6"></canvas>
+        <script>
+        var canvas = document.getElementById('gameCanvas');
+        var context = canvas.getContext('2d');
+        var imageObj = new Image();
+
+        imageObj.onload = function() {
+        context.drawImage(imageObj, 0, 0,320,640,0,0,320,640);
+        };
+        imageObj.src = '../images/bg.png';
+       </script>    
+    </div>
+        
+    <div id="right">
+        <div class="input_label user"> Top Score</label></div>
+            <input name="name" type="text" id="level" class="name" size="30" placeholder="0" disabled> 
+            <br /> 
+        <div class="input_label user"> Lines</label></div> 
+        <input name="name" type="text" id="lines" class="name" size="30" placeholder="0" disabled> 
+        <br />
+        <div class="input_label user">Score</label></div> 
+        <input name="name" type="text" id="score" class="name" size="30" placeholder="0" disabled> 
+        <br />
+        
+        <input id=prescore type="button" value="Previous Scores" onClick="getScore()"> <br />
+        <input id=inscore type="button" value="Save Score" onClick="saveScore()" > <br/>
+        <img src="../images/controls.png" alt="controls"> <br />
+        </div> 
+
+<script type="text/javascript"  src="../js/tetrisfunction.js"></script>
+
+<audio id="audio" loop> 
+  <source src="../images/Tetris.mp3">
+  <source src="../images/Tetris.ogg">
+</audio>
+
+<div id="dialog" title="Previous Scores">
+  <p></p>
+</div>
+
+<script type="text/javascript">
+ 
+$(document).ready(function(){
+  $('#login-trigger').click(function(){
+    $(this).next('#login-content').slideToggle();
+    $(this).toggleClass('active');          
+    
+    if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
+      else $(this).find('span').html('&#x25BC;')
+    })
+});
+ 
+</script> 
+</body>
+</html>

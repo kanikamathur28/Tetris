@@ -1,0 +1,50 @@
+<html>
+<head>
+<script>
+function showUser() {
+  var u=document.getElementById("username").value;
+  var p=document.getElementById("password").value;
+  alert(u);
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else { // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      alert(xmlhttp.responseText);
+        console.log("login successful");
+	  if(xmlhttp.responseText.trim()=="true")
+	  {
+		obj1 = document.getElementById(username);
+        obj1.style.display = 'none';
+		obj2 = document.getElementById(password);
+        obj2.style.display = 'none';
+	  }
+    }
+  }
+  xmlhttp.open("GET","http://localhost/~saurabh/tetris/HTML/login.php?user="+u+"&pass="+p,true);
+  xmlhttp.send();
+}
+</script>
+
+</head>
+<body>
+
+<form>
+UserName:
+
+<input type="text" name="username" id="username" />
+
+
+Password:
+<input type="password" name="password" id="password" /></td>
+
+<input type="submit" name="btnSubmit" id="btnSubmit" onclick="showUser()" value="Log In" />
+
+</form>
+<br>
+
+</body>
+</html>
